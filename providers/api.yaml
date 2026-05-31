@@ -1,0 +1,104 @@
+# ─────────────────────────────────────────────
+# AiBeing — Unified API Configuration
+# ─────────────────────────────────────────────
+# All external API settings in one place.
+# ENV var overrides always take priority over this file.
+# Future APIs (vision, STT, etc.) add new sections here.
+
+# ── LLM (对话引擎) ──
+llm:
+  provider: "gemini"             # Active provider name
+  # model is auto-resolved from providers.<name>.default_model
+  # Override globally: set DEFAULT_MODEL env var
+  temperature: 0.92
+  max_tokens: 1024
+  providers:
+    dashscope:
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      api_key_env: "DASHSCOPE_API_KEY"
+      default_model: "qwen-flash-2025-07-28"
+    openai:
+      base_url: "https://api.openai.com/v1"
+      api_key_env: "OPENAI_API_KEY"
+      default_model: "gpt-4o"
+    moonshot:
+      base_url: "https://api.moonshot.cn/v1"
+      api_key_env: "MOONSHOT_API_KEY"
+      default_model: "moonshot-v1-auto"
+    ollama:
+      base_url: "http://localhost:11434/v1"
+      api_key_env: ""
+      default_model: "qwen3.5:9b"
+      no_key_required: true
+    gemini:
+      api_key_env: "GEMINI_API_KEY"
+      default_model: "gemini-3.1-flash-lite-preview"
+    stepfun:
+      base_url: "https://api.stepfun.com/v1"
+      api_key_env: "STEPFUN_API_KEY"
+      default_model: "step-3.5-flash"
+    minimax:
+      base_url: "https://api.minimax.io/v1"
+      api_key_env: "MINIMAX_LLM_API_KEY"
+      default_model: "MiniMax-M2.7"
+
+# ── TTS (语音合成) ──
+tts:
+  provider: "dashscope"            # openai / dashscope / minimax
+  cache_dir: ".cache/tts"        # Relative to project root
+  providers:
+    openai:
+      api_key_env: "OPENAI_API_KEY"
+    dashscope:
+      api_key_env: "DASHSCOPE_API_KEY"
+      model: "qwen3-tts-instruct-flash-realtime"
+      default_voice: "Cherry"
+    minimax:
+      api_key_env: "MINIMAX_API_KEY"
+      model: "speech-2.8-turbo"
+
+  # Per-persona voice mapping (provider-specific)
+  # When switching TTS provider, update these values accordingly
+  voice_map:
+    ember: "gentle_female"
+    iris: "Momo"
+    kai: "calm_male"
+    kelly: "calm_male"
+    luna: "Maia"
+    mia: "sweet_female"
+    nova: "Cherry"
+    rex: "calm_male"
+    sora: "gentle_female"
+    vivian: "Serena"
+
+# ── Memory (双层记忆) ──
+# SoulMem: 行为记忆 — 指导怎么做 (常驻，SQLite FTS5)
+# EverMemOS: 陈述记忆 — 记住做了什么 (可选增强，HTTP)
+memory:
+  soulmem:
+    db_path: ".data/memory.db"     # 常驻，总是启用
+
+  evermemos:
+    enabled: false                  # Set to true + base_url after starting EverMemOS
+    base_url: ""                    # e.g. "http://localhost:1995/api/v1"
+    api_key_env: "EVERMEMOS_API_KEY"
+
+# ── Image (图片生成) ──
+image:
+  provider: "gemini"
+  cache_dir: ".cache/image"
+  providers:
+    gemini:
+      api_key_env: "GEMINI_API_KEY"
+      model: "gemini-3.1-flash-image-preview"
+
+# ── Speech (语音能力) ──
+# 注: providers/config.py 同时支持 "tts" 和 "speech" key
+# 当前保持 "tts" 不改，后续迁移到 "speech"
+
+# ── 预留: 未来 API ──
+# speech:
+#   asr:
+#     provider: "paraformer"
+#   live:
+#     provider: "realtime"
