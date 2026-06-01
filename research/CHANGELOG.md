@@ -17,7 +17,7 @@
 - **文档**: 修正 README/ README_EN 中 EverMemOS 云端 `EVERMEMOS_BASE_URL` 配置（去掉 `/v1` 后缀，避免与客户端自动拼接冲突）
 
 ### Known Issues
-- EverMemOS 云端 API 时间戳单位为秒级，服务端期望毫秒级（见 `research/everos-cloud-api-audit.md`）
+- EverMemOS 云端 API 时间戳单位为秒级，服务端期望毫秒级（见 `analysis/everos-cloud-api-audit.md`）
 - EverMemOS 云端 `sender_name` 字段缺失
 - Session 初始加载误用 `search` 接口（空 query），应改用 `memories/get`
 

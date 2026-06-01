@@ -123,8 +123,17 @@ AiBeing/
 │   ├── modality/              # 模态技能
 │   └── manage/                # 管理技能
 ├── tests/                     # 测试套件
-├── research/                  # 研究文档（审计、分析、路线图）
-├── docs/                      # 用户文档
+├── research/                  # 项目开发文档
+│   ├── ROADMAP.md             # 路线图
+│   ├── ARCHITECTURE.md        # 架构设计契约
+│   ├── PRD.md                 # 产品需求
+│   ├── DEVELOP.md             # 开发者指南
+│   ├── CHANGELOG.md           # 变更日志
+│   ├── guides/                # 操作指南（角色创建、技能引擎、TTS）
+│   ├── analysis/              # 代码分析、审计（持续新增）
+│   ├── benchmarks/            # 基准测试报告
+│   ├── references/            # 外部参考、备忘
+│   └── archive/               # 归档（过时的分析文档）
 └── wechat_adapter.py          # 微信桥接器
 ```
 
@@ -181,7 +190,7 @@ feat(skills): add calendar-aware proactive skill
 
 fix(evermemos): use millisecond timestamps for cloud API
 
-Refs: research/everos-cloud-api-audit.md
+Refs: analysis/everos-cloud-api-audit.md
 ```
 
 ### 3.3 调试配置（VS Code 示例）
