@@ -339,7 +339,7 @@ Connect [EverMemOS](https://evermind.ai) for cross-session persistent memory.
 
 Register at [evermind.ai](https://evermind.ai) and set in `.env`:
 ```bash
-EVERMEMOS_BASE_URL=https://api.evermind.ai/v1
+EVERMEMOS_BASE_URL=https://api.evermind.ai
 EVERMEMOS_API_KEY=your_api_key
 ```
 

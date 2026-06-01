@@ -367,7 +367,7 @@ chmod +x run.sh
 
 在 [evermind.ai](https://evermind.ai) 注册，然后在 `.env` 中设置：
 ```bash
-EVERMEMOS_BASE_URL=https://api.evermind.ai/v1
+EVERMEMOS_BASE_URL=https://api.evermind.ai
 EVERMEMOS_API_KEY=your_api_key
 ```
 
