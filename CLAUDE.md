@@ -98,4 +98,29 @@ Provider presets and defaults are also in `providers/api.yaml`. Env vars always 
 ## Workflow Conventions
 
 - **Push after every change**: After any code modification (edit, create, delete), commit and push to the remote repository immediately. Do not leave uncommitted or unpushed changes.
-- **Deep analysis outputs to `research/`**: Whenever a deep analysis or research task is requested, save the full output as a Markdown file in the `research/` directory. Use a descriptive filename (e.g., `research/evermemos-api-format.md`).
+- **Deep analysis outputs to `research/`**: Whenever a deep analysis or research task is requested, save the full output as a Markdown file in the `research/` directory. Follow the directory hierarchy below.
+
+## Documentation Structure (`research/`)
+
+All project-level docs live under `research/`. Do not create new docs under `docs/` (that directory is removed; all development docs are consolidated here).
+
+```
+research/
+├── ROADMAP.md, ARCHITECTURE.md, PRD.md, DEVELOP.md, CHANGELOG.md   # top-level project docs
+├── guides/                    # operational guides (persona creation, skill engine, TTS)
+├── analysis/                  # code analysis & audits (created on demand)
+│   ├── README.md              # index + naming template
+│   └── YYYY-MM-{topic}.md     # naming convention for new analysis docs
+├── benchmarks/                # benchmark reports (LLM comparisons, persona tests)
+├── references/                # external references, quick notes, API docs
+└── archive/                   # superseded analysis docs (do not delete, move here)
+```
+
+**Rules for creating new docs:**
+- **Code analysis / audit** → `research/analysis/YYYY-MM-{topic}.md`, then register it in `analysis/README.md`
+- **User-facing guide** (how to create a persona, how to integrate a provider) → `research/guides/{kebab-case}.md`
+- **External API reference** → `research/references/{name}.md`
+- **Benchmark / evaluation report** → `research/benchmarks/YYYY-MM-{topic}.md`
+- **If a doc becomes outdated** → move it to `research/archive/` instead of deleting
+
+**Internal links:** When referencing another doc, use relative paths from the doc's location (e.g., `../analysis/everos-cloud-api-audit.md` from `research/CHANGELOG.md`).
