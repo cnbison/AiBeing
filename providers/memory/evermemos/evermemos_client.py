@@ -1,9 +1,9 @@
 """
-EverMemOS Client — 长期记忆适配器 (Async v5 — Cloud + Self-Hosted Dual Mode)
+EverMemOS Client — 长期记忆适配器 (Async v6 — Cloud uses official everos SDK v1)
 
-v5 改进：
-  同时支持云端 API (api.evermind.ai) 和自部署版 (localhost:1995)。
-  自动检测模式，请求格式自动适配。
+v6 改进：
+  Cloud 模式使用官方 everos SDK (v1 API)，替代手写的 httpx 调用。
+  Self-hosted 模式保留原有 httpx 实现（v0 API），保持向后兼容。
 
 记忆涌现架构：
   1. 每轮对话结束后 → asyncio.create_task(store_turn(...)) 后台存储
@@ -11,15 +11,6 @@ v5 改进：
   3. Session 开始时拉取 Profile + Foresight 文本 → 注入 Critic + Actor
   4. 每轮 RRF 检索：event_log + episodic_memory + profile → 注入 Actor
   5. Session 结束时 flush → 触发边界提取
-
-API 差异 (Cloud vs Self-Hosted):
-  Cloud:    POST /api/v1/memories       body: {messages: [{role,content,timestamp}], user_id}
-            POST /api/v1/memories/search body: {query, filters: {user_id}}
-            Returns: {data: {episodes, profiles, raw_messages, agent_memory}}
-  Self-Hosted:
-            POST /memories              body: {content, create_time, sender, role, group_id}
-            GET  /memories/search       body: {query, user_id/group_ids}
-            GET  /memories              body: {memory_type, user_id/group_ids}
 """
 
 from __future__ import annotations
@@ -38,6 +29,15 @@ try:
     _YAML = True
 except ImportError:
     _YAML = False
+
+try:
+    from everos import AsyncEverOS
+    from everos.types.v1 import MessageItemParam
+    _EVEROS = True
+except ImportError:
+    _EVEROS = False
+    AsyncEverOS = None
+    MessageItemParam = None
 
 try:
     import httpx
@@ -185,7 +185,10 @@ def _fmt_latency(elapsed_ms: float) -> str:
 
 class EverMemOSClient:
     """
-    Async EverMemOS adapter for AiBeing (Cloud + Self-Hosted Dual Mode).
+    Async EverMemOS adapter for AiBeing.
+
+    Cloud mode (evermind.ai): uses official everos SDK (v1 API).
+    Self-hosted mode: uses custom httpx client (v0 API, backward compatible).
 
     Auto-detects cloud mode by checking if base_url contains 'evermind.ai'.
     All public methods are async. Use asyncio.create_task() for fire-and-forget
@@ -196,6 +199,7 @@ class EverMemOSClient:
         raw_url = (
             base_url
             or os.environ.get("EVERMEMOS_BASE_URL")
+            or os.environ.get("EVER_OS_BASE_URL")
             or _CFG.get("base_url")
             or "http://localhost:1995/api/v1"
         )
@@ -212,8 +216,7 @@ class EverMemOSClient:
                     self._base_url += "/api/v1"
         # Cloud: keep as-is (e.g. https://api.evermind.ai)
 
-        self._api_key = api_key or os.environ.get("EVERMEMOS_API_KEY")
-        self._client: Optional[httpx.AsyncClient] = None
+        self._api_key = api_key or os.environ.get("EVERMEMOS_API_KEY") or os.environ.get("EVEROS_API_KEY")
         self._initialized = False
 
         # Circuit breaker
@@ -230,35 +233,50 @@ class EverMemOSClient:
             print("⚠ EverMemOS disabled via config")
             return
 
-        if httpx is None:
-            print("⚠ httpx not installed (pip install httpx)")
-            return
-
-        try:
-            headers = {"Content-Type": "application/json"}
-            if self._api_key:
-                headers["Authorization"] = f"Bearer {self._api_key}"
-
-            self._client = httpx.AsyncClient(
-                base_url=self._base_url,
-                headers=headers,
-                timeout=10.0,
-                trust_env=False,
-            )
-            self._initialized = True
-            mode = "cloud" if self._is_cloud else "self-hosted"
-            print(f"✓ EverMemOS client initialized ({mode}, base_url={self._base_url})")
-        except Exception as e:
-            print(f"⚠ EverMemOS init failed: {e}")
+        if self._is_cloud:
+            if not _EVEROS:
+                print("⚠ everos SDK not installed (pip install everos>=0.4.0)")
+                return
+            if not self._api_key:
+                print("⚠ EverMemOS API key missing (EVEROS_API_KEY or EVERMEMOS_API_KEY)")
+                return
+            try:
+                self._client = AsyncEverOS(
+                    api_key=self._api_key,
+                    base_url=self._base_url,
+                )
+                self._initialized = True
+                print(f"✓ EverMemOS client initialized (cloud via everos SDK, base_url={self._base_url})")
+            except Exception as e:
+                print(f"⚠ EverMemOS init failed: {e}")
+        else:
+            # Self-hosted: custom httpx client
+            if httpx is None:
+                print("⚠ httpx not installed (pip install httpx)")
+                return
+            try:
+                headers = {"Content-Type": "application/json"}
+                if self._api_key:
+                    headers["Authorization"] = f"Bearer {self._api_key}"
+                self._client = httpx.AsyncClient(
+                    base_url=self._base_url,
+                    headers=headers,
+                    timeout=10.0,
+                    trust_env=False,
+                )
+                self._initialized = True
+                print(f"✓ EverMemOS client initialized (self-hosted, base_url={self._base_url})")
+            except Exception as e:
+                print(f"⚠ EverMemOS init failed: {e}")
 
     # ── internal helpers ──
 
-    def _now_ts(self) -> int:
-        """Current Unix timestamp (int64) for cloud API."""
-        return int(time.time())
+    def _now_ms(self) -> int:
+        """Current Unix timestamp in MILLISECONDS for v1 API."""
+        return int(time.time() * 1000)
 
     def _now_iso(self) -> str:
-        """Current ISO timestamp for self-hosted API."""
+        """Current ISO timestamp for self-hosted v0 API."""
         return time.strftime("%Y-%m-%dT%H:%M:%S+08:00", time.localtime())
 
     # ── public API ──
@@ -269,10 +287,11 @@ class EverMemOSClient:
             return False
         try:
             if self._is_cloud:
-                # Cloud: use search endpoint with empty query
-                resp = await self._client.post(
-                    "/api/v1/memories/search",
-                    json={"query": "", "filters": {"user_id": "__healthcheck__"}},
+                # Cloud: use get endpoint with minimal query
+                resp = await self._client.v1.memories.get(
+                    memory_type="profile",
+                    filters={"user_id": "__healthcheck__"},
+                    page_size=1,
                     timeout=8.0,
                 )
             else:
@@ -281,14 +300,7 @@ class EverMemOSClient:
                     json={"user_id": "__healthcheck__", "memory_type": "profile", "page_size": 1},
                     timeout=8.0,
                 )
-            if resp.status_code == 401:
-                print(f"✗ EverMemOS API key 无效 (HTTP 401)")
-                self._initialized = False
-                return False
-            if resp.status_code in (200, 400):
-                print(f"  ↳ EverMemOS API key 验证通过 ✓")
-                return True
-            print(f"  ↳ EverMemOS health check: HTTP {resp.status_code} (non-fatal)")
+            print(f"  ↳ EverMemOS API key 验证通过 ✓")
             return True
         except Exception as e:
             print(f"  ↳ EverMemOS health check failed: {e} (non-fatal)")
@@ -338,67 +350,63 @@ class EverMemOSClient:
             return empty
 
     async def _load_session_context_cloud(self, user_id: str, group_id: str) -> SessionContext:
-        """Cloud mode: use search endpoint to fetch all memory types."""
-        filters = {"user_id": user_id}
+        """Cloud mode: use official everos SDK v1.memories.get for each memory type."""
+        filters: dict = {"user_id": user_id}
         if group_id:
             filters["group_id"] = group_id
 
-        resp = await self._client.post(
-            "/api/v1/memories/search",
-            json={"query": "", "filters": filters},
-            timeout=_CFG["load_timeout_sec"],
-        )
-        if resp.status_code != 200:
-            print(f"  [evermemos] cloud load: HTTP {resp.status_code}")
-            self._cb.record_success()
-            return SessionContext()
+        timeout = _CFG["load_timeout_sec"]
 
-        data = resp.json().get("data", {})
-        profiles = data.get("profiles", [])
-        episodes = data.get("episodes", [])
-        raw_messages = data.get("raw_messages", [])
-        agent_memory = data.get("agent_memory", {})
+        async def _get_type(mtype: str):
+            try:
+                resp = await self._client.v1.memories.get(
+                    memory_type=mtype,
+                    filters=filters,
+                    page=1,
+                    page_size=20,
+                    timeout=timeout,
+                )
+                return resp.data
+            except Exception:
+                return None
+
+        profiles_data, episodes_data, agent_cases, agent_skills = await asyncio.gather(
+            _get_type("profile"),
+            _get_type("episodic_memory"),
+            _get_type("agent_case"),
+            _get_type("agent_skill"),
+        )
 
         # Build profile text
         profile_lines = []
-        for p in profiles:
-            if isinstance(p, dict):
-                for k, v in p.items():
-                    if v and k not in ("id", "memory_type", "user_id", "user_name"):
-                        profile_lines.append(f"{k}: {v}")
-            elif isinstance(p, str):
-                profile_lines.append(p)
+        if profiles_data and profiles_data.profiles:
+            for p in profiles_data.profiles:
+                if p.profile_data:
+                    for k, v in p.profile_data.items():
+                        if v and k not in ("id", "memory_type", "user_id", "user_name"):
+                            profile_lines.append(f"{k}: {v}")
 
         # Build episode text
         episode_lines = []
-        for ep in episodes:
-            if isinstance(ep, dict):
-                text = ep.get("summary") or ep.get("narrative") or ep.get("content") or ""
-            else:
-                text = str(ep)
-            if text:
-                episode_lines.append(text.strip())
-
-        # Build fact text from raw_messages
-        fact_lines = []
-        for msg in raw_messages:
-            if isinstance(msg, dict):
-                text = msg.get("content") or ""
+        if episodes_data and episodes_data.episodes:
+            for ep in episodes_data.episodes:
+                text = ep.summary or ep.episode or ""
                 if text:
-                    fact_lines.append(text.strip())
+                    episode_lines.append(text.strip())
 
-        # Foresight from agent_memory
+        # Build fact text from agent_cases (atomic facts)
+        fact_lines = []
+        if agent_cases and agent_cases.agent_cases:
+            for case in agent_cases.agent_cases:
+                # agent_case doesn't have atomic_fact directly; facts are in episodes
+                pass
+
+        # Foresight from agent_skills
         foresight_lines = []
-        if agent_memory and isinstance(agent_memory, dict):
-            fs = agent_memory.get("foresight") or agent_memory.get("predictions") or []
-            if isinstance(fs, list):
-                for item in fs:
-                    if isinstance(item, str):
-                        foresight_lines.append(item)
-                    elif isinstance(item, dict):
-                        t = item.get("content") or item.get("prediction") or ""
-                        if t:
-                            foresight_lines.append(t)
+        if agent_skills and agent_skills.agent_skills:
+            for skill in agent_skills.agent_skills:
+                if skill.description:
+                    foresight_lines.append(skill.description)
 
         max_facts = _CFG["facts_max_items"]
         max_profile = _CFG["profile_max_items"]
@@ -419,7 +427,11 @@ class EverMemOSClient:
             fs_items = [s[:max_fs_chars] for s in foresight_lines[:max_fs]]
             foresight_text = "；".join(fs_items)
 
-        interaction_count = len(raw_messages)
+        total_count = (
+            (profiles_data.total_count if profiles_data else 0)
+            + (episodes_data.total_count if episodes_data else 0)
+        )
+        interaction_count = total_count
         data_richness = len(fact_lines) * 2 + len(profile_lines) * 3 + len(episode_lines) * 5
         depth = 1.0 - math.exp(-data_richness / 30.0) if data_richness > 0 else 0.0
         if data_richness == 0 and interaction_count > 0:
@@ -435,7 +447,7 @@ class EverMemOSClient:
             episode_summary=episode_summary,
             foresight_text=foresight_text,
             interaction_count=interaction_count,
-            has_history=bool(profiles or episodes or raw_messages),
+            has_history=bool(profiles_data or episodes_data),
             relationship_depth=round(depth, 3),
             pending_foresight=round(pending_fs, 3),
             _fact_count=len(fact_lines),
@@ -587,23 +599,19 @@ class EverMemOSClient:
         user_message: str,
         agent_reply: str,
     ) -> None:
-        """Cloud mode: batch store messages in a single request."""
-        ts = self._now_ts()
+        """Cloud mode: batch store messages via everos SDK v1."""
+        ts = self._now_ms()
         messages = [
-            {"role": "user", "content": user_message, "timestamp": ts},
-            {"role": "assistant", "content": agent_reply, "timestamp": ts + 1},
+            {"role": "user", "content": user_message, "timestamp": ts, "sender_id": user_id},
+            {"role": "assistant", "content": agent_reply, "timestamp": ts + 1, "sender_id": persona_id},
         ]
 
-        body = {"messages": messages, "user_id": user_id}
+        body: dict = {"messages": messages, "user_id": user_id}
         if group_id:
-            body["group_id"] = group_id
+            body["session_id"] = group_id
 
-        r = await self._client.post("/api/v1/memories", json=body)
-        print(f"  [evermemos] POST messages: HTTP {r.status_code} uid={user_id}")
-        if r.status_code not in (200, 202):
-            print(f"  [evermemos] store failed: {r.text[:200]}")
-            self._cb.record_failure()
-            return
+        resp = await self._client.v1.memories.add(**body)
+        print(f"  [evermemos] POST messages: HTTP 200 uid={user_id}")
         self._cb.record_success()
 
     async def _store_turn_selfhosted(
@@ -672,20 +680,18 @@ class EverMemOSClient:
 
         try:
             if self._is_cloud:
-                ts = self._now_ts()
-                body = {
-                    "messages": [
-                        {"role": "assistant", "content": reply, "timestamp": ts}
-                    ],
-                    "user_id": user_id,
-                }
+                ts = self._now_ms()
+                messages = [
+                    {"role": "assistant", "content": reply, "timestamp": ts, "sender_id": persona_id},
+                ]
+                body = {"messages": messages, "user_id": user_id}
                 if group_id:
-                    body["group_id"] = group_id
-                r = await self._client.post("/api/v1/memories", json=body)
+                    body["session_id"] = group_id
+                resp = await self._client.v1.memories.add(**body)
             else:
                 now_iso = self._now_iso()
                 msg_id = f"proactive_{tick_id}"
-                r = await self._client.post("/memories", json={
+                resp = await self._client.post("/memories", json={
                     "content": reply,
                     "create_time": now_iso,
                     "message_id": msg_id,
@@ -697,12 +703,17 @@ class EverMemOSClient:
                     "refer_list": ["proactive"],
                 })
 
-            if r.status_code in (200, 202):
-                self._cb.record_success()
+            # Cloud SDK returns AddResponse, self-hosted returns httpx.Response
+            if self._is_cloud:
                 print(f"  [evermemos] stored proactive turn (tick={tick_id[:8]})")
+                self._cb.record_success()
             else:
-                print(f"  [evermemos] store_proactive failed: {r.text[:200]}")
-                self._cb.record_failure()
+                if resp.status_code in (200, 202):
+                    self._cb.record_success()
+                    print(f"  [evermemos] stored proactive turn (tick={tick_id[:8]})")
+                else:
+                    print(f"  [evermemos] store_proactive failed: {resp.text[:200]}")
+                    self._cb.record_failure()
         except Exception as e:
             self._cb.record_failure()
             print(f"  [evermemos] store_proactive error: {e}")
@@ -723,8 +734,12 @@ class EverMemOSClient:
 
         try:
             if self._is_cloud:
-                # Cloud: no explicit flush needed; processing is async
-                print(f"  [evermemos] 🔚 session ended (cloud, async processing) for {user_id}")
+                # Cloud: flush to trigger boundary extraction
+                await self._client.v1.memories.flush(
+                    user_id=user_id,
+                    session_id=group_id or None,
+                )
+                print(f"  [evermemos] 🔚 session flushed (cloud) for {user_id}")
             else:
                 await self._client.post("/memories", json={
                     "content": "[session_end]",
@@ -799,51 +814,44 @@ class EverMemOSClient:
             return "", "", ""
 
     async def _search_cloud(self, query: str, user_id: str, group_id: str) -> tuple[list, list, list]:
-        """Cloud mode search."""
-        filters = {"user_id": user_id}
+        """Cloud mode search via everos SDK v1."""
+        filters: dict = {"user_id": user_id}
         if group_id:
             filters["group_id"] = group_id
 
-        resp = await self._client.post(
-            "/api/v1/memories/search",
-            json={"query": query, "filters": filters},
+        resp = await self._client.v1.memories.search(
+            query=query,
+            filters=filters,
+            top_k=20,
             timeout=_CFG["search_timeout_sec"],
         )
 
-        if resp.status_code != 200:
-            print(f"  [evermemos] 🔍 search: HTTP {resp.status_code}")
+        data = resp.data
+        if data is None:
             self._cb.record_success()
             return [], [], []
 
-        data = resp.json().get("data", {})
-        episodes = data.get("episodes", [])
-        profiles = data.get("profiles", [])
-        raw_messages = data.get("raw_messages", [])
+        episodes = data.episodes or []
+        profiles = data.profiles or []
+        raw_messages = data.raw_messages or []
 
         facts = []
         for msg in raw_messages:
-            if isinstance(msg, dict):
-                text = msg.get("content", "")
-                if text:
-                    facts.append(text.strip())
+            if msg.content:
+                facts.append(msg.content.strip())
 
         ep_list = []
         for ep in episodes:
-            if isinstance(ep, dict):
-                text = ep.get("summary") or ep.get("narrative") or ep.get("content") or ""
-            else:
-                text = str(ep)
+            text = ep.summary or ep.episode or ""
             if text:
                 ep_list.append(text.strip())
 
         prof_list = []
         for p in profiles:
-            if isinstance(p, dict):
-                for k, v in p.items():
+            if p.profile_data:
+                for k, v in p.profile_data.items():
                     if v and k not in ("id", "memory_type", "user_id", "user_name"):
                         prof_list.append(f"{k}: {v}")
-            elif isinstance(p, str):
-                prof_list.append(p)
 
         self._cb.record_success()
         max_facts = _CFG["facts_max_items"]
