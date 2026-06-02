@@ -29,7 +29,7 @@ GENOME_DIR = os.path.join(DATA_DIR, "genome")
 # DBs to fully delete (no precious data)
 DELETE_DBS = ["chat.db", "memory.db", "task.db"]
 
-# Tables in openher.db to clear (user data only, NOT genesis_seed)
+# Tables in aibeing.db to clear (user data only, NOT genesis_seed)
 CLEAR_TABLES = ["style_memory"]
 
 # Other files to clean
@@ -37,7 +37,7 @@ CLEANUP_FILES = ["server.log"]
 
 
 def clean_data():
-    """Remove runtime data while preserving genesis seeds in openher.db."""
+    """Remove runtime data while preserving genesis seeds in aibeing.db."""
     print("🧹 清除运行时数据...")
 
     # Delete secondary DBs entirely
@@ -49,15 +49,15 @@ def clean_data():
         else:
             print(f"  ⏭️  {fname} 不存在，跳过")
 
-    # Clear user data tables in openher.db (preserve genesis_seed!)
+    # Clear user data tables in aibeing.db (preserve genesis_seed!)
     if os.path.exists(DB_PATH):
         conn = sqlite3.connect(DB_PATH)
         for table in CLEAR_TABLES:
             try:
                 conn.execute(f"DELETE FROM {table}")
-                print(f"  ✅ 已清空 openher.db → {table}")
+                print(f"  ✅ 已清空 aibeing.db → {table}")
             except sqlite3.OperationalError:
-                print(f"  ⏭️  openher.db → {table} 不存在，跳过")
+                print(f"  ⏭️  aibeing.db → {table} 不存在，跳过")
         conn.commit()
         conn.close()
 
@@ -70,7 +70,7 @@ def clean_data():
         else:
             print("  ⚠️  genesis_seed 为空，需要导入种子")
     else:
-        print("  ⏭️  openher.db 不存在")
+        print("  ⏭️  aibeing.db 不存在")
 
     # Clean log files
     for fname in CLEANUP_FILES:
@@ -83,7 +83,7 @@ def clean_data():
 
 
 def import_seeds():
-    """Import genesis seeds into openher.db.
+    """Import genesis seeds into aibeing.db.
 
     Source priority:
     1. persona/seeds.bin                      (compressed binary, in repo)

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AiBeing is an AI Being (AI companion) engine forked from OpenHer. It implements the **Genome v10 Hybrid** personality engine where character behavior emerges from an internal dynamics system (drives × neural network × Hebbian learning) rather than static prompt descriptions.
+AiBeing is an AI Being (AI companion) engine. It implements the **Genome v10 Hybrid** personality engine where character behavior emerges from an internal dynamics system (drives × neural network × Hebbian learning) rather than static prompt descriptions.
 
 Each conversation turn flows through a 12-step lifecycle: Task Skill → EverMemOS context → Time Metabolism → Critic Perception (LLM → 8D context + 5D frustration delta) → Relationship EMA → Drive Baseline Evolution → Crystallization → Signal Computation → Thermodynamic Noise → KNN Style Retrieval → Single-Pass Actor (monologue + reply + modality) → Modality Skill Execution → Hebbian Learning → Async Memory Storage.
 

@@ -562,10 +562,10 @@ voice:
 
 | 数据 | 存储位置 | 格式 |
 |------|---------|------|
-| Agent 神经网络状态 | openher.db | JSON (W1, W2, b1, b2, drive_state, ...) |
-| Metabolism 状态 | openher.db | JSON (frustration, last_tick) |
-| Proactive 元数据 | openher.db | last_active, cadence, state_version |
-| 风格记忆 | openher.db | SQLite (genesis_seed + style_memory 表) |
+| Agent 神经网络状态 | aibeing.db | JSON (W1, W2, b1, b2, drive_state, ...) |
+| Metabolism 状态 | aibeing.db | JSON (frustration, last_tick) |
+| Proactive 元数据 | aibeing.db | last_active, cadence, state_version |
+| 风格记忆 | aibeing.db | SQLite (genesis_seed + style_memory 表) |
 | 聊天历史 (展示) | chat.db | SQLite |
 | 本地事实 | memory.db | SQLite FTS5 |
 | 长期记忆 | EverMemOS | HTTP API |
