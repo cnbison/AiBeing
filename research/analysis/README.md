@@ -12,6 +12,7 @@
 | 日期 | 文档 | 分析范围 | 状态 |
 |------|------|---------|------|
 | 2026-06-01 | [everos-cloud-api-audit.md](everos-cloud-api-audit.md) | `providers/memory/evermemos/evermemos_client.py` 云端 API 模式 | active |
+| 2026-06-02 | [2026-06-api-access-methods.md](2026-06-api-access-methods.md) | 后端对话接入方式（REST + WebSocket + 内置客户端） | active |
 
 ---
 
