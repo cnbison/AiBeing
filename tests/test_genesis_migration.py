@@ -45,7 +45,7 @@ def test_data_integrity():
 
     data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".data")
     genome_dir = os.path.join(data_dir, "genome")
-    db_path = os.path.join(data_dir, "openher.db")
+    db_path = os.path.join(data_dir, "aibeing.db")
 
     import glob
     json_files = sorted(glob.glob(os.path.join(genome_dir, "genesis_*.json")))
@@ -104,7 +104,7 @@ def test_knn_recall():
     print("═" * 60)
 
     data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".data")
-    db_path = os.path.join(data_dir, "openher.db")
+    db_path = os.path.join(data_dir, "aibeing.db")
 
     # Test contexts covering different scenarios
     test_contexts = [

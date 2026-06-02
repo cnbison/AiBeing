@@ -71,7 +71,7 @@ DISTANCE_THRESHOLD = 0.5
 def test_recall_for_persona(persona_id: str, lang: str = "zh"):
     """Test recall accuracy for one persona."""
     data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".data")
-    db_path = os.path.join(data_dir, "openher.db")
+    db_path = os.path.join(data_dir, "aibeing.db")
 
     sm = ContinuousStyleMemory(
         agent_id=f"{persona_id}_recall_test",
@@ -131,7 +131,7 @@ def test_json_db_consistency():
     import glob
     data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".data")
     genome_dir = os.path.join(data_dir, "genome")
-    db_path = os.path.join(data_dir, "openher.db")
+    db_path = os.path.join(data_dir, "aibeing.db")
 
     json_files = sorted(glob.glob(os.path.join(genome_dir, "genesis_*.json")))
     if not json_files:

@@ -396,10 +396,10 @@ Step 12: Fire Async Search (for NEXT turn)
 
 ```bash
 # 查看某用户的神经权重和驱力状态
-sqlite3 .data/openher.db "SELECT agent_data FROM genome_state WHERE user_id='xxx' AND persona_id='luna';"
+sqlite3 .data/aibeing.db "SELECT agent_data FROM genome_state WHERE user_id='xxx' AND persona_id='luna';"
 
 # 查看风格记忆的最近晶化记录
-sqlite3 .data/openher.db "SELECT * FROM style_memory ORDER BY created_at DESC LIMIT 5;"
+sqlite3 .data/aibeing.db "SELECT * FROM style_memory ORDER BY created_at DESC LIMIT 5;"
 
 # 查看 EverMemOS circuit breaker 状态
 # （目前只有日志输出，无 HTTP 端点暴露）

@@ -56,7 +56,7 @@ bio:
 
 ## 三、阶段 2：编写种子 (genesis_xxx.json)
 
-路径：生成后经 `calibrate_genesis.py` 校准并存入 `openher.db` 的 `genesis_seed` 表。
+路径：生成后经 `calibrate_genesis.py` 校准并存入 `aibeing.db` 的 `genesis_seed` 表。
 
 ### 种子结构
 
@@ -345,7 +345,7 @@ with open("/tmp/_dbg_output.txt", "w") as f:
      - PYTHONPATH=. python3 scripts/calibrate_genesis.py <id>
      - 检查输出：每条种子的 scenario 分类是否正确
      - 检查向量范围：不同 scenario 的 vector 应该明显不同
-     - 校准后数据自动存入 openher.db genesis_seed 表
+     - 校准后数据自动存入 aibeing.db genesis_seed 表
 
 □ 5. 重启服务器
 

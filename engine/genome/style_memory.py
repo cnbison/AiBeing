@@ -94,7 +94,7 @@ class ContinuousStyleMemory:
 
         # SQLite for personal memories (fallback to JSON for backward compat)
         self._state_db_path = state_db_path or os.path.join(
-            os.path.dirname(self.db_dir), "openher.db"
+            os.path.dirname(self.db_dir), "aibeing.db"
         )
         self._init_db()
 

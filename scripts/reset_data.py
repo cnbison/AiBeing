@@ -23,7 +23,7 @@ os.chdir(ROOT)
 from engine.genome.style_memory import ContinuousStyleMemory
 
 DATA_DIR = os.path.join(ROOT, ".data")
-DB_PATH = os.path.join(DATA_DIR, "openher.db")
+DB_PATH = os.path.join(DATA_DIR, "aibeing.db")
 GENOME_DIR = os.path.join(DATA_DIR, "genome")
 
 # DBs to fully delete (no precious data)

@@ -175,7 +175,7 @@ async def startup():
     os.makedirs(genome_data_dir, exist_ok=True)
 
     # 6. State persistence
-    state_store = StateStore(os.path.join(data_dir, "openher.db"))
+    state_store = StateStore(os.path.join(data_dir, "aibeing.db"))
 
     # 6b. Chat log persistence (display-only, independent from engine state)
     chat_log_store = ChatLogStore(os.path.join(data_dir, "chat.db"))
