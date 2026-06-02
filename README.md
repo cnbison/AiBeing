@@ -287,7 +287,15 @@ DEFAULT_MODEL=moonshot-v1-8k
 ### 三、启动后端
 
 ```bash
-python main.py
+# 方式 1：直接启动
+uvicorn main:app --host 0.0.0.0 --port 8000
+
+# 方式 2：开发模式（热重载）
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+# 方式 3：使用脚本
+chmod +x run.sh
+./run.sh
 ```
 
 启动成功会看到：
