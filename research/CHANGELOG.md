@@ -15,11 +15,18 @@
 
 ### Fixed
 - **文档**: 修正 README/ README_EN 中 EverMemOS 云端 `EVERMEMOS_BASE_URL` 配置（去掉 `/v1` 后缀，避免与客户端自动拼接冲突）
+- **EverMemOS 云端客户端重写**: 基于官方 `everos` SDK (v1 API) 重写 `evermemos_client.py`
+  - 时间戳：秒级 → 毫秒级 (`int(time.time() * 1000)`)
+  - 补上 `sender_id`（SDK 字段名，对应旧参考文档中的 `sender_name`）
+  - Session 加载改用 `memories.get`（替代空 query 的 `search`）
+  - `verify_connection` 改用 `memories.get`
+  - `close_session` 调用 `memories.flush` 触发边界提取
+  - 响应解析改用 SDK 类型化对象（替代手写 `resp.json()`）
+  - 依赖更新：`evermemos>=0.1.0` → `everos>=0.4.0`
+  - `memory_config.yaml`: 修正 cloud base_url 为 `https://api.evermind.ai`（SDK 自动拼接版本路径）
 
 ### Known Issues
-- EverMemOS 云端 API 时间戳单位为秒级，服务端期望毫秒级（见 `analysis/everos-cloud-api-audit.md`）
-- EverMemOS 云端 `sender_name` 字段缺失
-- Session 初始加载误用 `search` 接口（空 query），应改用 `memories/get`
+- （暂无已知阻塞性 Bug）
 
 ---
 

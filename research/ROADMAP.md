@@ -35,10 +35,10 @@ AiBeing 是一个 **AI Being（AI 生命体）引擎**，fork 自 OpenHer。核�
 
 | 问题 | 严重程度 | 位置 | 备注 |
 |------|---------|------|------|
-| EverMemOS 云端时间戳单位错误 | **高** | `evermemos_client.py:258` | `time.time()` 秒级 → 应为毫秒级 |
-| EverMemOS 云端 `sender_name` 缺失 | 中 | `evermemos_client.py:592` | 可能导致用户画像提取异常 |
-| Session 加载误用 `search` 接口 | 中 | `evermemos_client.py:346` | 空 query 语义未定义，应改用 `memories/get` |
-| 自托管模式 GET 请求带 body | 低 | `evermemos_client.py:458,869` | HTTP 语义不规范，自托管服务端可能拒绝 |
+| ~~EverMemOS 云端时间戳单位错误~~ | **高** | `evermemos_client.py` | ✅ 已修复：重写为 `everos` SDK，毫秒级时间戳 |
+| ~~EverMemOS 云端 `sender_name` 缺失~~ | 中 | `evermemos_client.py` | ✅ 已修复：补上 `sender_id` |
+| ~~Session 加载误用 `search` 接口~~ | 中 | `evermemos_client.py` | ✅ 已修复：改用 `memories.get` |
+| 自托管模式 GET 请求带 body | 低 | `evermemos_client.py` | 自托管保留 v0 实现，HTTP 语义不规范 |
 | `persona/generator.py:260` | 低 | `TODO: 对接具体的图像生成 API` | 角色生成工具的图片生成未实现 |
 
 ### 2.3 基础设施债务
@@ -63,7 +63,7 @@ AiBeing 是一个 **AI Being（AI 生命体）引擎**，fork 自 OpenHer。核�
 - [x] 主动消息（驱力驱动的自主行为）
 - [x] 单轮统一推理（Single-Pass Actor）
 - [x] 技能引擎（Task + Modality）
-- [ ] **Bug 修复**: EverMemOS 云端 API 对齐（时间戳、sender_name、search → get）
+- [x] ~~Bug 修复: EverMemOS 云端 API 对齐~~ ✅ 已完成（基于 everos SDK 重写）
 - [ ] **优化**: 12 步生命周期性能剖析（定位延迟瓶颈）
 
 **验收标准**: 单轮延迟 < 3s（含 LLM），EverMemOS 跨会话记忆 100% 可用。

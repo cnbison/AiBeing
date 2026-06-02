@@ -6,7 +6,7 @@
 
 evermemos:
   enabled: true                  # Master switch — false = local mode only
-  base_url: "https://api.evermind.ai/api/v0"  # Cloud EverMemOS
+  base_url: "https://api.evermind.ai"  # Cloud EverMemOS (SDK auto-appends /api/v1)
 
   # Retrieval settings
   retrieve_method: "rrf"         # rrf | hybrid | agentic

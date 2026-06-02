@@ -113,7 +113,7 @@ Level 0: 运行 ── AI 能稳定服务、不崩溃
 - 信任度（trust_level）影响 AI 的袒露程度
 
 **当前限制**：
-- EverMemOS 云端 API 存在时间戳缺陷（见 `everos-cloud-api-audit.md`），影响记忆准确性
+- （暂无已知阻塞性限制）
 
 ### 场景 4：日历感知（阶段 II 目标）
 
