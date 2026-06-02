@@ -357,7 +357,7 @@ final class AppState: ObservableObject {
     }
 
     func getClientId() -> String {
-        let key = "openher_client_id"
+        let key = "aibeing_client_id"
         if let existing = UserDefaults.standard.string(forKey: key) {
             return existing
         }

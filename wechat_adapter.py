@@ -38,7 +38,7 @@ PUBLIC_BASE = os.getenv("PUBLIC_BASE", f"http://localhost:{ADAPTER_PORT}")
 BRIDGE_API = os.getenv("BRIDGE_API", "http://localhost:9099")
 
 # ── 状态 ──
-AUDIO_DIR = Path("/tmp/openher_wechat_audio")
+AUDIO_DIR = Path("/tmp/aibeing_wechat_audio")
 AUDIO_DIR.mkdir(exist_ok=True)
 
 app = FastAPI(title="AiBeing WeChat Adapter")
@@ -384,7 +384,7 @@ async def health():
     return {
         "status": "ok",
         "persona": PERSONA_ID,
-        "openher": OPENHER_BASE,
+        "aibeing": OPENHER_BASE,
         "ws_connected": _persistent_ws._connected.is_set(),
         "wechat_users": list(_persistent_ws._wechat_users),
     }

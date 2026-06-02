@@ -164,7 +164,7 @@ monologue 和 reply 中**严禁**包含：
 运行命令：
 
 ```bash
-cd /path/to/openher
+cd /path/to/aibeing
 source .venv/bin/activate
 PYTHONPATH=. python3 scripts/calibrate_genesis.py <persona_id>
 ```

@@ -57,7 +57,7 @@ class TTSEngine:
         minimax_model: str = "speech-2.8-turbo",
     ):
         self.provider = provider
-        self.cache_dir = cache_dir or os.path.join(tempfile.gettempdir(), "openher_tts")
+        self.cache_dir = cache_dir or os.path.join(tempfile.gettempdir(), "aibeing_tts")
         os.makedirs(self.cache_dir, exist_ok=True)
 
         # Store per-provider API keys for provider-override calls

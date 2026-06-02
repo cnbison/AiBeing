@@ -40,7 +40,7 @@ cat > "$CONTENTS/Info.plist" << 'EOF'
     <key>CFBundleExecutable</key>
     <string>AiBeing</string>
     <key>CFBundleIdentifier</key>
-    <string>com.openher.app</string>
+    <string>com.aibeing.app</string>
     <key>CFBundleName</key>
     <string>AiBeing</string>
     <key>CFBundleDisplayName</key>
