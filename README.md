@@ -1,44 +1,16 @@
 <div align="center">
 
-<img src="docs/assets/logo_header.png" alt="AiBeing" height="80">
 
-<img src="docs/assets/banner.png" alt="AiBeing Banner" width="100%">
 
 ### *人格涌现，从 AiBeing 开始。*
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue?style=flat-square)](https://python.org)
 [![EverMemOS](https://img.shields.io/badge/记忆引擎-EverMemOS-FF6B6B?style=flat-square)](https://evermind.ai)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Stars](https://img.shields.io/github/stars/kellyvv/AiBeing?style=flat-square)](https://github.com/kellyvv/OpenHer)
+[![Stars](https://img.shields.io/github/stars/cnbison/AiBeing?style=flat-square)](https://github.com/cnbison/AiBeing)
 
-[![中文文档](https://img.shields.io/badge/中文文档-555555?style=flat-square)](README.md) &nbsp; [![English](https://img.shields.io/badge/English-FF6B6B?style=flat-square)](README_EN.md)
 
 [灵感来源](#灵感来源) · [什么是 AiBeing](#-什么是-openher) · [愿景](#-愿景) · [核心能力](#-核心能力) · [技术原理](#-技术原理) · [记忆架构](#-记忆架构) · [LLM 兼容性](#-llm-兼容性) · [快速开始](#-快速开始) · [微信接入](#-微信接入可选) · [创建角色](#-创建你自己的角色) · [路线图](#️-路线图)
-
-</div>
-
-<div align="center">
-<table>
-<tr>
-<td align="center"><img src="docs/assets/screenshot_iris.png" alt="苏漫 · INFP" width="260"></td>
-<td align="center"><img src="docs/assets/screenshot_luna.png" alt="陆暖 · ENFP" width="260"></td>
-<td align="center"><img src="docs/assets/screenshot_vivian.png" alt="顾霆微 · INTJ" width="260"></td>
-</tr>
-<tr>
-<td align="center"><b>苏漫</b> · INFP · 温柔诗意</td>
-<td align="center"><b>陆暖</b> · ENFP · 明朗活泼</td>
-<td align="center"><b>顾霆微</b> · INTJ · 冷艳危险</td>
-</tr>
-</table>
-
-*她们在等你唤醒。*
-
-<div style="display: flex; flex-direction: column; width: 100%; align-items: center; margin-top: 20px;">
-    <div style="text-align: center; width: 100%; max-width: 800px; height: auto;">
-        <video src="https://github.com/user-attachments/assets/e2292f6b-9a97-42b0-b34e-8ab9db5e31ff" width="100%" height="auto" controls autoplay loop muted></video>
-        <p style="color: gray; font-size: 12px; text-align: center;">展示视频 · <a href="https://www.youtube.com/watch?v=AE7bspVHEI8">YouTube 完整版</a></p>
-    </div>
-</div>
 
 </div>
 
@@ -194,26 +166,13 @@ AiBeing 以同样的逻辑构建 Persona Engine——**运用仿生机制，创�
 ### 引擎架构
 
 <div align="center">
-<img src="docs/assets/architecture.png" alt="AiBeing Persona Engine 架构图" width="90%">
-
-<div style="display: flex; flex-direction: column; width: 100%; align-items: center; margin-top: 20px;">
-    <div style="text-align: center; width: 100%; max-width: 800px; height: auto;">
-        <video src="https://github.com/user-attachments/assets/7156178e-7c45-436a-a41a-c6acfc93457d" width="100%" height="auto" controls autoplay loop muted></video>
-        <p style="color: gray; font-size: 12px; text-align: center;">原理讲解视频 · <a href="https://www.youtube.com/watch?v=9X8CnuJpc9M">YouTube 完整版</a></p>
-    </div>
-</div>
+<img src="research/assets/architecture.png" alt="AiBeing Persona Engine 架构图" width="90%">
 
 </div>
 
 不同的随机种子 → 不同的神经网络初始化 → 不同的涌现人格。相同 MBTI，完全不同的人——连我们自己都会感到意外。
 
-<div align="center">
 
-<img src="docs/assets/demo.gif" alt="AiBeing Demo" width="360">
-
-*唤醒 → 聊天 · macOS 原生客户端*
-
-</div>
 
 ---
 
@@ -234,7 +193,7 @@ AiBeing 以同样的逻辑构建 Persona Engine——**运用仿生机制，创�
 
 > *她们的性格不是用文字描述给 AI 的——而是从每个角色独特的驱力基线和神经网络种子中涌现出来的。这意味着她们甚至能让我们自己感到意外。*
 
-→ 创建你自己的：[角色创建指南](docs/persona_creation_guide.md)
+→ 创建你自己的：[角色创建指南](research/guides/persona-creation.md)
 
 ---
 
@@ -266,7 +225,7 @@ AiBeing 支持多种大模型——但不是所有模型都能胜任人格涌现
 
 **支持模型：** Gemini · Claude · Qwen3 · GPT-5.4-mini / GPT-4o · MiniMax · Moonshot · StepFun · Ollama (本地)
 
-→ 测试方法：[LLM 对比报告](docs/benchmark/llm_comparison_report.md) · [鲁棒性报告](docs/benchmark/gemini_layer4_report.md)
+→ 测试方法：[LLM 对比报告](research/benchmark/llm_comparison_report.md) · [鲁棒性报告](research/benchmark/gemini_layer4_report.md)
 
 ---
 
@@ -281,7 +240,7 @@ AiBeing 支持多种大模型——但不是所有模型都能胜任人格涌现
 ### 一、克隆 & 安装
 
 ```bash
-git clone https://github.com/kellyvv/OpenHer.git
+git clone https://github.com/cnbison/AiBeing.git
 cd AiBeing
 ```
 
@@ -321,8 +280,8 @@ cp .env.example .env
 设置默认服务商：
 
 ```bash
-DEFAULT_PROVIDER=gemini           # 或 claude, dashscope, openai, minimax, moonshot, stepfun, ollama
-DEFAULT_MODEL=gemini-3.1-flash-lite-preview
+DEFAULT_PROVIDER=moonshot           # 或 claude, dashscope, openai, minimax, moonshot, stepfun, ollama （小写）
+DEFAULT_MODEL=moonshot-v1-8k
 ```
 
 ### 三、启动后端
@@ -339,7 +298,7 @@ INFO:     Uvicorn running on http://0.0.0.0:8000
 
 ### 四、启动桌面客户端
 
-1. 从 [GitHub Releases](https://github.com/kellyvv/OpenHer/releases) 下载 `AiBeing.app.zip`
+1. 从 [GitHub Releases](https://github.com/cnbison/AiBeing/releases) 下载 `AiBeing.app.zip`
 2. 解压得到 `AiBeing.app`
 3. 双击打开（首次需右键 → 打开 → 信任）
 4. 确保后端已在运行（步骤三），客户端会自动连接 `localhost:8000`
@@ -457,7 +416,7 @@ genome_seed:
 
 > 不需要写性格描述——AI 不会读它。性格从驱力、神经权重和真实经历中**涌现**。
 
-→ 完整指南：[角色创建指南](docs/persona_creation_guide.md)
+→ 完整指南：[角色创建指南](research/guides/persona-creation.md)
 
 ---
 
@@ -538,6 +497,7 @@ genome_seed:
 
 - **[Her](https://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E6%83%85%E4%BA%BA)** (2013) — 启发这一切的那部电影
 - **[EverMemOS](https://evermind.ai)** — 长期记忆基础设施
+- **[OpenHer](https://github.com/kellyvv/OpenHer)** — 本项目fork来源
 
 ---
 
@@ -546,7 +506,4 @@ genome_seed:
 **Built with 🧬 by the AiBeing team**
 
 *性格不是一段 prompt，而是一个活的过程。*
-
-
-
 </div>

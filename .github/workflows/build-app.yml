@@ -53,7 +53,7 @@ jobs:
             <key>CFBundleExecutable</key>
             <string>AiBeing</string>
             <key>CFBundleIdentifier</key>
-            <string>com.openher.app</string>
+            <string>com.aibeing.app</string>
             <key>CFBundleName</key>
             <string>AiBeing</string>
             <key>CFBundleDisplayName</key>
@@ -98,5 +98,5 @@ jobs:
 
             > ⚠️ 首次打开 macOS 可能会提示"无法验证开发者"，请右键 → 打开 → 信任。
 
-            需要后端服务配合使用，请参考 [快速开始](https://github.com/kellyvv/OpenHer#-快速开始)。
+            需要后端服务配合使用，请参考 [快速开始](https://github.com/cnbison/AiBeing#-快速开始)。
           generate_release_notes: true
