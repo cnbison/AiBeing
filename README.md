@@ -482,16 +482,6 @@ genome_seed:
 
 [Apache License 2.0](LICENSE) — 免费用于任何用途，包括商业。
 
-## 🤝 参与贡献
-
-欢迎贡献！无论是新角色、技能插件、Bug 修复还是文档改进——每一个 PR 都有价值。
-
-请阅读 **[贡献指南](CONTRIBUTING.md)** 了解代码规范、测试要求和 PR 流程。
-
-1. Fork 本仓库
-2. 创建分支 (`git checkout -b feature/amazing-feature`)
-3. 提交改动 (`git commit -m 'Add amazing feature'`)
-4. Push 并发起 Pull Request
 
 ## 🙏 致谢
 
