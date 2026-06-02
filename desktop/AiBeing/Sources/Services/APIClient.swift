@@ -1,6 +1,6 @@
 import Foundation
 
-/// REST API client for the OpenHer backend.
+/// REST API client for the AiBeing backend.
 actor APIClient {
     let baseURL: String
 

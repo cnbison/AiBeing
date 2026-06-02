@@ -373,7 +373,7 @@ final class WebSocketManager: ObservableObject {
 
             // Send native notification
             NotificationService.shared.sendNotification(
-                title: appState?.selectedPersona?.name ?? "OpenHer",
+                title: appState?.selectedPersona?.name ?? "AiBeing",
                 body: content
             )
 

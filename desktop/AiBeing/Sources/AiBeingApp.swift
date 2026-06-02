@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
-    /// Called from OpenHerApp to observe phase changes
+    /// Called from AiBeingApp to observe phase changes
     func observePhase(of appState: AppState) {
         // Apply initial lock
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
@@ -65,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 }
 
 @main
-struct OpenHerApp: App {
+struct AiBeingApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appState = AppState()
 
@@ -124,7 +124,7 @@ struct OpenHerApp: App {
         .defaultPosition(.bottom)
 
         // Demo Showcase — audience-facing visualization panel
-        Window("OpenHer · Live", id: "demo-showcase") {
+        Window("AiBeing · Live", id: "demo-showcase") {
             DemoShowcasePanel()
                 .environmentObject(appState)
         }

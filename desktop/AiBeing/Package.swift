@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "OpenHer",
+    name: "AiBeing",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "OpenHer",
+            name: "AiBeing",
             path: "Sources",
             resources: [
                 .copy("Resources/chat_bg.png"),

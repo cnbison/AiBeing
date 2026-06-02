@@ -165,7 +165,7 @@ final class AppState: ObservableObject {
         do {
             personas = try await apiClient.fetchPersonas()
         } catch {
-            print("[OpenHer] Failed to load personas: \(error)")
+            print("[AiBeing] Failed to load personas: \(error)")
         }
     }
 
@@ -294,7 +294,7 @@ final class AppState: ObservableObject {
                 personaId: personaId, clientId: clientId
             )
         } catch {
-            print("[OpenHer] Failed to load history: \(error)")
+            print("[AiBeing] Failed to load history: \(error)")
         }
     }
 

@@ -1,10 +1,10 @@
 #!/bin/bash
-# Build and run OpenHer as a proper .app bundle with icon
+# Build and run AiBeing as a proper .app bundle with icon
 set -e
 
 PROJ_DIR="$(cd "$(dirname "$0")" && pwd)"
 BUILD_DIR="$PROJ_DIR/.build/debug"
-APP_DIR="$BUILD_DIR/OpenHer.app"
+APP_DIR="$BUILD_DIR/AiBeing.app"
 CONTENTS="$APP_DIR/Contents"
 MACOS_DIR="$CONTENTS/MacOS"
 RESOURCES_DIR="$CONTENTS/Resources"
@@ -15,8 +15,8 @@ cd "$PROJ_DIR"
 swift build 2>&1
 
 # Kill existing instance
-pkill -f "OpenHer.app/Contents/MacOS/OpenHer" 2>/dev/null || true
-pkill -f ".build/debug/OpenHer" 2>/dev/null || true
+pkill -f "AiBeing.app/Contents/MacOS/AiBeing" 2>/dev/null || true
+pkill -f ".build/debug/AiBeing" 2>/dev/null || true
 sleep 0.5
 
 # Create .app bundle structure
@@ -24,7 +24,7 @@ rm -rf "$APP_DIR"
 mkdir -p "$MACOS_DIR" "$RESOURCES_DIR"
 
 # Copy binary
-cp "$BUILD_DIR/OpenHer" "$MACOS_DIR/OpenHer"
+cp "$BUILD_DIR/AiBeing" "$MACOS_DIR/AiBeing"
 
 # Copy icon
 if [ -f "$PROJ_DIR/Sources/Resources/AppIcon.icns" ]; then
@@ -38,13 +38,13 @@ cat > "$CONTENTS/Info.plist" << 'EOF'
 <plist version="1.0">
 <dict>
     <key>CFBundleExecutable</key>
-    <string>OpenHer</string>
+    <string>AiBeing</string>
     <key>CFBundleIdentifier</key>
     <string>com.openher.app</string>
     <key>CFBundleName</key>
-    <string>OpenHer</string>
+    <string>AiBeing</string>
     <key>CFBundleDisplayName</key>
-    <string>OpenHer</string>
+    <string>AiBeing</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
     <key>CFBundleShortVersionString</key>
@@ -70,9 +70,9 @@ done
 
 # Copy .app to project root for easy access
 ROOT_DIR="$PROJ_DIR/../.."
-rm -rf "$ROOT_DIR/OpenHer.app"
-cp -R "$APP_DIR" "$ROOT_DIR/OpenHer.app"
-echo "✅ OpenHer.app → $(cd "$ROOT_DIR" && pwd)/OpenHer.app"
+rm -rf "$ROOT_DIR/AiBeing.app"
+cp -R "$APP_DIR" "$ROOT_DIR/AiBeing.app"
+echo "✅ AiBeing.app → $(cd "$ROOT_DIR" && pwd)/AiBeing.app"
 
-echo "🚀 Launching OpenHer..."
-open "$ROOT_DIR/OpenHer.app"
+echo "🚀 Launching AiBeing..."
+open "$ROOT_DIR/AiBeing.app"
