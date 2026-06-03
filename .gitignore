@@ -30,3 +30,9 @@ vendor/
 
 # Temp
 temp/
+
+# macOS App bundles (compiled from desktop/AiBeing)
+*.app/
+
+# Swift build artifacts
+.build/
