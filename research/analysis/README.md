@@ -13,6 +13,7 @@
 |------|------|---------|------|
 | 2026-06-01 | [everos-cloud-api-audit.md](everos-cloud-api-audit.md) | `providers/memory/evermemos/evermemos_client.py` 云端 API 模式 | active |
 | 2026-06-02 | [2026-06-api-access-methods.md](2026-06-api-access-methods.md) | 后端对话接入方式（REST + WebSocket + 内置客户端） | active |
+| 2026-06-04 | [2026-06-genome-signal-llm-pipeline.md](2026-06-genome-signal-llm-pipeline.md) | Genome 引擎信号如何通过 system prompt 影响 LLM 输出 | active |
 
 ---
 
