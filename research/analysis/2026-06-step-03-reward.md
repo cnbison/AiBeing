@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 3 — 奖励计算（LLM Metabolism → Reward）
 scope: engine/genome/drive_metabolism.py:apply_llm_delta
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 奖励计算是 Genome 引擎的"情绪翻译器"。它将 Critic 判断的挫败变化量（frustration_delta）转换成单一的 reward 信号，供 Hebbian Learning 使用。这是一个从多维变化到标量反馈的降维过程，是连接"感知"与"学习"的关键桥梁。

@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 9 — Actor 生成（Single-Pass LLM Actor）
 scope: agent/chat_agent.py Step 9, agent/parser.py:extract_reply
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > Actor 是 Genome 引擎的"表演者"。它接收 Step 8 构建的完整舞台指令（prompt），用 LLM 生成三段输出：内心独白（角色此刻的真实想法）、最终回复（角色说出口的话）、表达方式（文字/语音/照片/静默）。这是唯一一次调用 LLM 来生成回复，也是用户最终看到的输出来源。

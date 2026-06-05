@@ -271,26 +271,26 @@ async with self._turn_lock:
 
 ## 七、后续文档导航
 
-本系列共 13 篇文档，逐一深度分析每个步骤：
+本系列共 16 篇文档，逐一深度分析每个步骤：
 
 | # | 文档 | 分析步骤 | 核心代码 |
 |---|---|---|---|
-| 1 | [lifecycle-overview.md](lifecycle-overview.md) | 总览 | chat_agent.py |
-| 2 | [lifecycle-step-00-evermemos.md](lifecycle-step-00-evermemos.md) | EverMemOS 会话上下文 | agent/evermemos_mixin.py |
-| 3 | [lifecycle-step-01-metabolism.md](lifecycle-step-01-metabolism.md) | 时间代谢 | engine/genome/drive_metabolism.py |
-| 4 | [lifecycle-step-02-critic.md](lifecycle-step-02-critic.md) | Critic 感知 | engine/genome/critic.py |
-| 5 | [lifecycle-step-02p5-relationship.md](lifecycle-step-02p5-relationship.md) | 关系 EMA | chat_agent.py:_apply_relationship_ema |
-| 6 | [lifecycle-step-03-reward.md](lifecycle-step-03-reward.md) | 奖励计算 | drive_metabolism.py:apply_llm_delta |
-| 7 | [lifecycle-step-03p5-baseline.md](lifecycle-step-03p5-baseline.md) | 驱动基线演化 | chat_agent.py:baseline evolution loop |
-| 8 | [lifecycle-step-04-crystal.md](lifecycle-step-04-crystal.md) | 结晶门 | style_memory.py:crystallize |
-| 9 | [lifecycle-step-05-signals.md](lifecycle-step-05-signals.md) | 信号计算 | genome_engine.py:compute_signals |
-| 10 | [lifecycle-step-06-noise.md](lifecycle-step-06-noise.md) | 热力学噪声 | drive_metabolism.py:apply_thermodynamic_noise |
-| 11 | [lifecycle-step-07-knn.md](lifecycle-step-07-knn.md) | KNN 风格检索 | style_memory.py:retrieve/build_few_shot |
-| 12 | [lifecycle-step-08-prompt.md](lifecycle-step-08-prompt.md) | Prompt 构建 | prompt_builder.py:_build_single_prompt |
-| 13 | [lifecycle-step-09-actor.md](lifecycle-step-09-actor.md) | Actor 生成 | chat_agent.py:LLM call + parser.py |
-| 14 | [lifecycle-step-10-hebbian.md](lifecycle-step-10-hebbian.md) | Hebbian 学习 | genome_engine.py:learn/step |
-| 15 | [lifecycle-step-11-12-async.md](lifecycle-step-11-12-async.md) | 异步记忆 | evermemos_mixin.py + chat_agent.py |
-| 16 | [lifecycle-summary.md](lifecycle-summary.md) | 完整串联汇总 | 全系统 |
+| 1 | [lifecycle-overview.md](2026-06-lifecycle-overview.md) | 总览 | chat_agent.py |
+| 2 | [step-00-evermemos.md](2026-06-step-00-evermemos.md) | EverMemOS 会话上下文 | agent/evermemos_mixin.py |
+| 3 | [step-01-metabolism.md](2026-06-step-01-metabolism.md) | 时间代谢 | engine/genome/drive_metabolism.py |
+| 4 | [step-02-critic.md](2026-06-step-02-critic.md) | Critic 感知 | engine/genome/critic.py |
+| 5 | [step-02p5-relationship.md](2026-06-step-02p5-relationship.md) | 关系 EMA | chat_agent.py:_apply_relationship_ema |
+| 6 | [step-03-reward.md](2026-06-step-03-reward.md) | 奖励计算 | drive_metabolism.py:apply_llm_delta |
+| 7 | [step-03p5-baseline.md](2026-06-step-03p5-baseline.md) | 驱动基线演化 | chat_agent.py:baseline evolution loop |
+| 8 | [step-04-crystal.md](2026-06-step-04-crystal.md) | 结晶门 | style_memory.py:crystallize |
+| 9 | [step-05-signals.md](2026-06-step-05-signals.md) | 信号计算 | genome_engine.py:compute_signals |
+| 10 | [step-06-noise.md](2026-06-step-06-noise.md) | 热力学噪声 | drive_metabolism.py:apply_thermodynamic_noise |
+| 11 | [step-07-knn.md](2026-06-step-07-knn.md) | KNN 风格检索 | style_memory.py:retrieve/build_few_shot |
+| 12 | [step-08-prompt.md](2026-06-step-08-prompt.md) | Prompt 构建 | prompt_builder.py:_build_single_prompt |
+| 13 | [step-09-actor.md](2026-06-step-09-actor.md) | Actor 生成 | chat_agent.py:LLM call + parser.py |
+| 14 | [step-10-hebbian.md](2026-06-step-10-hebbian.md) | Hebbian 学习 | genome_engine.py:learn/step |
+| 15 | [step-11-12-async.md](2026-06-step-11-12-async.md) | 异步记忆 | evermemos_mixin.py + chat_agent.py |
+| 16 | [lifecycle-summary.md](2026-06-lifecycle-summary.md) | 完整串联汇总 | 全系统 |
 
 ---
 

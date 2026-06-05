@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 8 & 8.5 — Prompt 构建与记忆注入
 scope: agent/prompt_builder.py:_build_single_prompt, chat_agent.py Step 8.5
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > Prompt 构建是 Genome 引擎的"舞台布景"。它将角色的身份、内心状态（信号）、潜意识回忆（few-shot）和用户特定记忆（profile/episode）组装成一个完整的"表演指令"，让 LLM 知道"此刻我是谁、我处于什么状态、我应该怎么说话"。

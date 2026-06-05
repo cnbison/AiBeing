@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: 单轮对话生命周期完整串联汇总
 scope: 全部 12 步 + 前后置环节
 status: active
-related: lifecycle-overview.md, lifecycle-step-*.md
+related: 2026-06-lifecycle-overview.md, 2026-06-step-*.md
 ---
 
 > 本文将 Genome v10 Hybrid 的 12 步生命周期串联成一条完整的"数据河流"，追踪一个用户消息从进入系统到产生回复的全过程。同时总结每一步的设计哲学和它们之间的依赖关系。

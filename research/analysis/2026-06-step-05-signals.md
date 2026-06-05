@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 5 — 信号计算（Compute Signals）
 scope: engine/genome/genome_engine.py:compute_signals
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 信号计算是 Genome 引擎的"大脑皮层"。它将 25 维输入（驱动状态 + 情境上下文 + 循环状态）通过随机神经网络转换成 8 维行为信号。这是从"内心状态"到"外在行为倾向"的核心映射。

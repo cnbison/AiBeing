@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 2.5 — 关系 EMA 更新（Semi-Emergent Relationship Update）
 scope: agent/chat_agent.py:_apply_relationship_ema
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 关系 EMA 是 Genome v10 的"情感记账本"。它将 Critic 判断的本轮关系变化与历史累积的关系状态融合，形成渐进式的关系演化。这让角色对用户的认知不是突变式的，而是在长期互动中慢慢加深或疏远。

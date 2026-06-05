@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 6 — 热力学噪声（Thermodynamic Noise）
 scope: engine/genome/drive_metabolism.py:apply_thermodynamic_noise, temperature
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 热力学噪声是 Genome 引擎的"情绪不稳定性"。它模拟了物理学中的热力学原理——温度越高，分子运动越混乱。在角色身上，挫败感越高（温度越高），行为越不可预测。

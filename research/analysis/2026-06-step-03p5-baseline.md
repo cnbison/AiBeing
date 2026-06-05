@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 3.5 — 驱动基线演化（Drive Baseline Evolution）
 scope: agent/chat_agent.py:288-299
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 驱动基线演化是 Genome 引擎的"性格漂移"机制。它让角色的长期性格不是固定不变的，而是会随着交互历史缓慢演化。但这种演化不是无限制的——弹性拉回力（elasticity）确保角色不会变成完全不同的人。

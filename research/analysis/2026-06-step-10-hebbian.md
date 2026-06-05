@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 10 — Hebbian 学习（Hebbian Learning）
 scope: engine/genome/genome_engine.py:learn, step
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > Hebbian 学习是 Genome 引擎的"神经可塑性"。它根据本轮的奖励信号，强化或削弱神经网络中的连接权重。这是角色"成长"的核心机制——每一次交互都在微妙地改变角色的行为模式，让"好的"反应更容易出现，"坏的"反应更难发生。

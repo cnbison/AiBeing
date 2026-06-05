@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 1 — 时间代谢（Time Metabolism）
 scope: engine/genome/drive_metabolism.py
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 时间代谢是 Genome 引擎的"物理时钟"。它用两个简单的微分方程模拟物理时间对角色内心状态的影响：挫败感会随时间冷却，但联结和新鲜感的渴望会随时间线性增长。这让角色在无人互动时也会"想念"用户。

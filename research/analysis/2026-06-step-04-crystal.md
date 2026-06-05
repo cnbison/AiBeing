@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 4 — 结晶门（Crystallization Gate）
 scope: engine/genome/style_memory.py:crystallize, agent/prompt_builder.py:_should_crystallize
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > 结晶门是 Genome 引擎的"记忆筛选器"。它决定上一轮产生的交互是否值得存入长期风格记忆。不是每一轮对话都值得记住——只有那些"有趣、有深度、有正向反馈"的交互才配被结晶。

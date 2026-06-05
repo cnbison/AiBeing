@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 2 — Critic 感知（Critic Perception）
 scope: engine/genome/critic.py
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > Critic 是 Genome 引擎的"感官系统"。它用 LLM 的语义理解能力将用户的自然语言输入转换成结构化的数值向量 —— 8 维情境感知 + 5 维挫败变化 + 3 维关系变化 + 5 维需求满足。这些数值是后续所有计算的基础。

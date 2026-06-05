@@ -3,7 +3,7 @@ date: 2026-06-05
 topic: Step 0 — EverMemOS 会话上下文加载
 scope: agent/evermemos_mixin.py, providers/memory/evermemos/
 status: active
-related: lifecycle-overview.md
+related: 2026-06-lifecycle-overview.md
 ---
 
 > EverMemOS 是 Genome v10 的"长期记忆层"。Step 0 在首次对话时异步加载用户的跨会话画像、历史叙事和前瞻，让角色"记得"你是谁、你们聊过什么、以及有什么值得关心的事。
