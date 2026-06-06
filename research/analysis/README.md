@@ -32,6 +32,7 @@
 | 2026-06-05 | [lifecycle-step-11-12-async.md](lifecycle-step-11-12-async.md) | Step 11-12: 异步记忆 | active |
 | 2026-06-05 | [lifecycle-summary.md](lifecycle-summary.md) | 完整串联汇总 | active |
 | 2026-06-06 | [LLM_and_Cognitive_Architecture_Complete_Discussion.md](LLM_and_Cognitive_Architecture_Complete_Discussion.md) | LLM 局限性与认知架构维度（记忆、状态、主体性） | active |
+| 2026-06-06 | [2026-06-aibeing-cognitive-architecture-gap-analysis.md](2026-06-aibeing-cognitive-architecture-gap-analysis.md) | 对照理论框架的全项目技术差距审计（16 项差距 + 4 阶段路线图） | active |
 
 ---
 
