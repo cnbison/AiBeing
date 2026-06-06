@@ -31,6 +31,7 @@
 | 2026-06-05 | [lifecycle-step-10-hebbian.md](lifecycle-step-10-hebbian.md) | Step 10: Hebbian 学习 | active |
 | 2026-06-05 | [lifecycle-step-11-12-async.md](lifecycle-step-11-12-async.md) | Step 11-12: 异步记忆 | active |
 | 2026-06-05 | [lifecycle-summary.md](lifecycle-summary.md) | 完整串联汇总 | active |
+| 2026-06-06 | [LLM_and_Cognitive_Architecture_Complete_Discussion.md](LLM_and_Cognitive_Architecture_Complete_Discussion.md) | LLM 局限性与认知架构维度（记忆、状态、主体性） | active |
 
 ---
 
