@@ -33,6 +33,7 @@
 | 2026-06-05 | [lifecycle-summary.md](lifecycle-summary.md) | 完整串联汇总 | active |
 | 2026-06-06 | [LLM_and_Cognitive_Architecture_Complete_Discussion.md](LLM_and_Cognitive_Architecture_Complete_Discussion.md) | LLM 局限性与认知架构维度（记忆、状态、主体性） | active |
 | 2026-06-06 | [2026-06-aibeing-cognitive-architecture-gap-analysis.md](2026-06-aibeing-cognitive-architecture-gap-analysis.md) | 对照理论框架的全项目技术差距审计（16 项差距 + 4 阶段路线图） | active |
+| 2026-06-10 | [2026-06-genome-params-reference-guide.md](2026-06-genome-params-reference-guide.md) | genome_seed 参数体系详解：drive_baseline + engine_params 设定方法与参考指南 | active |
 
 ---
 
